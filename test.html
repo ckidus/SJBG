@@ -1,61 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>WEB1 - index</title>
-<meta charset="utf-8">
+  <title>직사각형 그리기</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <h1><a href="index.html"> WEB</a></h1>
-  <h2>WEB</h2>
-  <h1>WEB이란 무엇인가?</h1>
- 
-
-  <head>
-
-    <script type="text/javascript">
-    
-    <!--
-    
-       var ver = prompt("Enter your name : ", "your name here");
-    
-    //-->
-    
-    </script>
-    
-  </head>
-
-  <script>document.write(""+ver+"");
-  </script>
-
-     <!-- HTML -->
-     <!-- 1. canvas 엘리먼트를 선언한다: id, widht, height를 태그 내에서 지정해준다. -->
-     <canvas id="myCanvas" width="400" height="600"></canvas>
-
-     <!-- Javascript -->
-     <script>
-         // 1. canvas 엘리먼트를 취득한다.
-         const canvas = document.getElementById('myCanvas');
- 
-         // 2. 2d모드의 그리기 객체를 취득한다. => 이 객체를 통해 canvas에 그림을 그릴 수 있다.
-         const ctx = canvas.getContext("2d");
- 
-         // 3. '선' 사각형 그리기
-         ctx.strokeStyle = 'blue';
-         ctx.strokeRect(10, 10, ""+ver+"", 100);
- 
-         // 4. '색' 사각형 그리기
-         ctx.fillStyle = 'pink';
-         ctx.fillRect(10, 150, 100, 100);
- 
-         // 5. '선+색' 사각형 그리기
-         ctx.strokeRect(10, 300, 100, 100);
-         ctx.fillRect(10, 300, 100, 100);
- 
-         // 6. 사각형 모양으로 지우기
-         ctx.fillRect(10, 450, 100, 100); // 먼저 '색' 사각형을 그리고,
-         ctx.clearRect(20, 500, 100, 100); // 일부 영역을 지운다.
- 
-     </script>
-
+  <h1>직사각형 그리기</h1>
+  <label for="xLengthInput">x축 길이: </label>
+  <input type="number" id="xLengthInput">
+  <br>
+  <label for="yLengthInput">y축 길이: </label>
+  <input type="number" id="yLengthInput">
+  <br>
+  <button onclick="drawRectangle()">그리기</button>
+  <div id="rectangle"></div>
+  <script src="script.js"></script>
 </body>
 </html>
