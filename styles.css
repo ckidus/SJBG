@@ -1,5 +1,26 @@
-#rectangle {
-    background-color: blue;
-    margin-top: 20px;
-  }
-  
+.rectangle {
+  width: 100px;
+  height: 200px;
+  border: 1px solid blue;
+  position: relative;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.coordinates {
+  margin-top: 10px;
+}
+
+#middleLine {
+  position: absolute;
+  background-color: #000;
+  width: 2px; /* 선의 두께 */
+}

@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>직사각형 그리기</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>사각형과 좌표 표시</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 120vh;
+      background-color: white;
+      display: flex;
+    }
+  </style>
 </head>
 <body>
-  <h1>직사각형 그리기</h1>
+  <h1>사각형과 좌표 표시</h1>
   <label for="xLengthInput">x축 길이: </label>
   <input type="number" id="xLengthInput">
   <br>
-  <label for="yLengthInput">y축 길이: </label>
-  <input type="number" id="yLengthInput">
+  <label for="circleCountInput">원의 개수: </label>
+  <input type="number" id="circleCountInput">
   <br>
-  <button onclick="drawRectangle()">그리기</button>
-  <div id="rectangle"></div>
+  <label for="diameterInput">원의 지름: </label>
+  <input type="number" id="diameterInput">
+  <br>
+  <label for="Hori_spacingInput">가로간격: </label>
+  <input type="number" id="Hori_spacingInput">
+  <br>
+  <label for="Vert_spacingInput">세로간격: </label>
+  <input type="number" id="Vert_spacingInput">
+  <br>
+  <button onclick="drawCanvas()">그리기 </button>
+  <canvas id="myCanvas" width="800" height="650"></canvas>
+
   <script src="script.js"></script>
 </body>
 </html>
