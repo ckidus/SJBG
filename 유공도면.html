@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <h1><a href="index.html">Home</a></h1>
+  <title>유공도면 간단화</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>유공도면 간단화</h1>
+  <label for="xLengthInput">폭의 길이 (cm): </label>
+  <input type="number" id="xLengthInput" placeholder="예: 100"><br>
+
+  <label for="circleCountInput">구멍의 개수: </label>
+  <input type="number" id="circleCountInput" placeholder="예: 5"><br>
+
+  <label for="diameterInput">구멍 지름 (cm): </label>
+  <input type="number" id="diameterInput" placeholder="예: 5"><br>
+
+  <label for="Hori_spacingInput">구멍 가로 간격 (cm): </label>
+  <input type="number" id="Hori_spacingInput" placeholder="예: 20"><br>
+
+  <input type="checkbox" id="Mid_spacingCheckbox" onchange="toggleMid_spacingInput()">
+  <label for="Mid_spacingCheckbox">가운데만 다를때</label>
+  <input type="number" id="Mid_spacingInput" style="display: none;"><br>
+
+  <label for="Vert_spacingInput">구멍 세로 간격 (cm): </label>
+  <input type="number" id="Vert_spacingInput" placeholder="예: 20"><br>
+
+  <button onclick="drawCanvas()">그리기 </button>
+  <canvas id="myCanvas" width="800" height="800"></canvas>
+  
+  <h2 id="userInputText" style="text-align: center;"></h2>
+  <script src="유공도면.js"></script>
+</body>
+</html>

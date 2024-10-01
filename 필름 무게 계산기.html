@@ -5,41 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>필름 무게 계산기</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input {
-            margin: 5px;
-        }
-        button {
-            margin: 10px 0;
-        }
-        #result {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>필름 무게 계산기</h1>
     <label for="thickness">두께 (mm):</label>
-    <input type="number" id="thickness" step="0.000001" placeholder="예: 0.018"><br>
+    <input type="number" id="thickness" step="0.000001" placeholder="예: 0.015"><br>
 
     <label for="width">폭 (cm):</label>
-    <input type="number" id="width" placeholder="예: 180"><br>
+    <input type="number" id="width" placeholder="예: 100"><br>
 
     <label for="length">길이 (m):</label>
     <input type="number" id="length" placeholder="예: 500"><br>
 
     <label for="holeDiameter">구멍 지름 (cm):</label>
-    <input type="number" id="holeDiameter" step="0.01" placeholder="예: 3"><br>
+    <input type="number" id="holeDiameter" step="0.01" placeholder="예: 5"><br>
 
     <label for="verticalSpacing">구멍 세로 간격 (cm):</label>
-    <input type="number" id="verticalSpacing" step="0.01" placeholder="예: 12"><br>
+    <input type="number" id="verticalSpacing" step="0.01" placeholder="예: 10"><br>
 
-    <label for="holeCountPerRow">열 당 구멍 개수:</label>
-    <input type="number" id="holeCountPerRow" placeholder="예: 12"><br>
+    <label for="holeCountPerRow">구멍 개수:</label>
+    <input type="number" id="holeCountPerRow" placeholder="예: 10"><br>
 
     <label for="density">비중:</label>
     <input type="number" id="density" step="0.01" value="1.21"><br>

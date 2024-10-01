@@ -9,6 +9,29 @@ function toggleMid_spacingInput() {
   }
 }
 
+function drawRectangleLines(context, rectTopX, dataY, xLength,centerX) {
+  context.beginPath();
+  // 가로선
+  context.moveTo(rectTopX, dataY + 30); // 시작점
+  context.lineTo(rectTopX + xLength, dataY + 30); // 끝점
+
+  // 왼쪽선
+  context.moveTo(rectTopX, dataY); // 시작점
+  context.lineTo(rectTopX, dataY + 30); // 끝점
+
+  // 오른쪽선
+  context.moveTo(rectTopX + xLength, dataY); // 시작점
+  context.lineTo(rectTopX + xLength, dataY + 30); // 끝점
+
+  context.strokeStyle = "black";
+  context.stroke();
+  context.closePath();
+
+  context.font = "15px Arial";
+  context.fillStyle = "black";
+  context.fillText(xLength, centerX-10, dataY+45); // x폭 표시
+}
+
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 
@@ -22,11 +45,18 @@ function resizeCanvas() {
 }
 
 function drawCanvas() {
-  var xLength = parseInt(document.getElementById("xLengthInput").value);
-  var circleCount = parseInt(document.getElementById("circleCountInput").value);
-  var diameter = parseInt(document.getElementById("diameterInput").value);
-  var Hori_spacing = parseInt(document.getElementById("Hori_spacingInput").value);
-  var Vert_spacing = parseInt(document.getElementById("Vert_spacingInput").value);
+  //var xLength = parseInt(document.getElementById("xLengthInput").value);
+  //var circleCount = parseInt(document.getElementById("circleCountInput").value);
+  //var diameter = parseInt(document.getElementById("diameterInput").value);
+  //var Hori_spacing = parseInt(document.getElementById("Hori_spacingInput").value);
+  //var Vert_spacing = parseInt(document.getElementById("Vert_spacingInput").value);
+
+  //테스트용으로 폭 100 디폴트
+  var xLength = 100;
+  var circleCount = 4;
+  var diameter = 5;
+  var Hori_spacing = 20;
+  var Vert_spacing = 20;
 
   var Mid_spacingVal = parseInt(document.getElementById("Mid_spacingInput").value); //가운데 다를때
 
@@ -120,20 +150,7 @@ function drawCanvas() {
     context.closePath();
 
     //전체 폭 표시
-    context.beginPath();
-    context.moveTo(circles[rightCircleValue] , dataY+30); // 가로선 시작점
-    context.lineTo(circles[LeftCircleValue] , dataY+30); // 가로선 끝점
-    context.moveTo(circles[LeftCircleValue] , dataY); // 왼쪽선 시작점
-    context.lineTo(circles[LeftCircleValue] , dataY+30); // 왼쪽선 끝점
-    context.moveTo(circles[rightCircleValue] , dataY); // 오른쪽선 시작점
-    context.lineTo(circles[rightCircleValue] , dataY+30); // 오른쪽선 끝점
-    context.strokeStyle = "black";
-    context.stroke();
-    context.closePath();
-
-    context.font = "15px Arial";
-    context.fillStyle = "black";
-    context.fillText(xLength, centerX-10, dataY+45); // x폭 표시
+    drawRectangleLines(context, rectTopX, dataY, xLength,centerX);
 
 
     for (let l = 0; l < circleCount; l++) {
@@ -216,20 +233,7 @@ function drawCanvas() {
     context.closePath();
 
     //전체 폭 표시
-    context.beginPath();
-    context.moveTo(circles[rightCircleValue] , dataY+30); // 가로선 시작점
-    context.lineTo(circles[LeftCircleValue] , dataY+30); // 가로선 끝점
-    context.moveTo(circles[LeftCircleValue] , dataY); // 왼쪽선 시작점
-    context.lineTo(circles[LeftCircleValue] , dataY+30); // 왼쪽선 끝점
-    context.moveTo(circles[rightCircleValue] , dataY); // 오른쪽선 시작점
-    context.lineTo(circles[rightCircleValue] , dataY+30); // 오른쪽선 끝점
-    context.strokeStyle = "black";
-    context.stroke();
-    context.closePath();
-
-    context.font = "15px Arial";
-    context.fillStyle = "black";
-    context.fillText(xLength, centerX-10, dataY+45); // x폭 표시
+    drawRectangleLines(context, rectTopX, dataY, xLength,centerX)
 
     for (let l = 0; l < circleCount; l++) {
       
