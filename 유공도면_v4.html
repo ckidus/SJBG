@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <h1><a href="home.html">Home</a></h1>
+    <meta charset="UTF-8">
+    <title>Full HD 사각형 그리기 및 다운로드</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        
+        #canvasContainer {
+            width: 540px;
+            height: 960px;
+            overflow: hidden;
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+        canvas { 
+            background-color: white;
+            margin-top: 5px;
+        }
+        label { display: inline-block; width: 150px; }
+        input, button { 
+            margin: 5px; 
+        }
+        .input-group { margin-bottom: 5px; }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>도면 생성기</h1>
+    <div class="input-group">
+        <label for="width">폭 (cm):</label>
+        <input type="number" id="width" value="200" placeholder="100cm">
+    </div>
+    <!-- <div class="input-group">
+        <label for="height">길이 (m):</label>
+        <input type="number" id="height" value="300" placeholder="500m">
+    </div> -->
+    <div class="input-group">
+        <label for="holeSize">구멍 크기 (cm):</label>
+        <input type="number" id="holeSize" value="20" placeholder="5cm">
+    </div>
+    <div class="input-group">
+        <label for="horizontalSpacing">가로 간격 길이 (cm):</label>
+        <input type="number" id="horizontalSpacing" value="20" placeholder="20cm">
+    </div>
+    <div class="input-group">
+        <label for="verticalSpacing">세로 간격 길이 (cm):</label>
+        <input type="number" id="verticalSpacing" value="20" placeholder="20cm">
+    </div>
+    <div class="input-group">
+        <label for="holeCount">구멍 개수:</label>
+        <input type="number" id="holeCount" value="10" placeholder="10구">
+    </div>
+    <div>
+        <button onclick="drawRectangle()">유공도면 그리기</button>
+    </div>
+    <div id="canvasContainer" ></div>
+    <div>
+        <button onclick="downloadPNG()">PNG 다운로드</button>
+        <button onclick="downloadPDF()">PDF 다운로드</button>
+    </div>
+    <script src="script_v4.js"></script>
+    
+</body>
+</html>
