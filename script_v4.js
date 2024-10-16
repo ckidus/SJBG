@@ -22,8 +22,8 @@ function drawRectangle() {
     
     // 입력값 가져오기
     const width = parseInt(document.getElementById('width').value);
-    const height = 300 //parseInt(document.getElementById('height').value);
     const holeSize = Number(document.getElementById('holeSize').value);
+    const height = 300-holeSize //parseInt(document.getElementById('height').value);
     const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
     const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
     const holeCount = Number(document.getElementById('holeCount').value);
@@ -68,7 +68,7 @@ function drawRectangle() {
     // 치수선 그리기 + 개별 폭 표시
     ctx.textAlign = 'center';
     ctx.font = '7px Arial';
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'red';
     bot_rect_right_X = x+width; //사각형 오른쪽 밑 x좌표
     bot_rect_left_Y = y+height; //사각형 왼쪽 밑 y좌표
     indiv_dimension_y = bot_rect_left_Y + 10;
@@ -108,39 +108,76 @@ function drawRectangle() {
     center_X = x + width / 2;
     bot_center_Y = total_dimension_y + 30;
     lineHeight = 10;
+    ctx.fillStyle = 'black';
     ctx.fillText("폭 " +width +" "+holeCount+"구", center_X, bot_center_Y);
     ctx.fillText("간격 " +horizontalSpacing +"*"+verticalSpacing, center_X, bot_center_Y+lineHeight);
     ctx.fillText(holeSize +"파이", center_X, bot_center_Y + lineHeight * 2);
+    
+    ctx.fillStyle = 'red';
+    ctx.fillText("유공의 특성상 제품 생산 후 교환 및 환불이 불가합니다.", center_X, y-lineHeight*1.2);
 
-    ctx.fillText("환불안받음 아무튼 안받음", center_X, y-lineHeight);
+    //확인표 만들기
+    drawTable();
 
 
     // 디버깅을 위한 로그
-    console.log(`Canvas size: ${canvas.width}x${canvas.height}`);
-    console.log(`Drawing rectangle at (${x}, ${y}) with size ${width}x${height}`);
-    console.log(`구멍 시작위치 (${cirlce_startX}, ${cirlce_startY})`);
-
+    //console.log(`Canvas size: ${canvas.width}x${canvas.height}`);
+    //console.log(`Drawing rectangle at (${x}, ${y}) with size ${width}x${height}`);
+    //console.log(`구멍 시작위치 (${cirlce_startX}, ${cirlce_startY})`);
 }
 //png 다운로드
 function downloadPNG() {
+    // 입력값 가져오기
+    const width = parseInt(document.getElementById('width').value);
+    const holeSize = Number(document.getElementById('holeSize').value);
+    const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
+    const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
+    const holeCount = Number(document.getElementById('holeCount').value);
+
+    // 현재 날짜를 yymmdd 형식으로 가져오기
+    const today = new Date();
+    const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
+
+    // 파일명 생성
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.png`;
+
     const dataURL = canvas.toDataURL('image/png');
     const link = document.createElement('a');
-    link.download = 'full_hd_rectangle.png';
+    link.download = fileName;
     link.href = dataURL;
     link.click();
 }
 //pdf 다운로드
 function downloadPDF() {
+    const scale = 4;
+    const canvas_width = 540 * scale / 2;
+    const canvas_height = 960 * scale / 2;
     const { jsPDF } = window.jspdf;
+
+    // 입력값 가져오기
+    const width = parseInt(document.getElementById('width').value);
+    const holeSize = Number(document.getElementById('holeSize').value);
+    const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
+    const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
+    const holeCount = Number(document.getElementById('holeCount').value);
+    
     const pdf = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
         unit: "px",
-        format: [canvas.width / scale, canvas.height / scale]
+        format: [canvas_width, canvas_height]
     });
 
     const imgData = canvas.toDataURL('image/png');
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / scale, canvas.height / scale);
-    pdf.save('full_hd_rectangle.pdf');
+    pdf.addImage(imgData, 'PNG', 0, 0, canvas_width, canvas_height);
+
+    // 현재 날짜를 yymmdd 형식으로 가져오기
+    const today = new Date();
+    const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
+
+    // 파일명 생성
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.pdf`;
+
+    pdf.save(fileName);
 }
 
 //지시선 그리기
@@ -242,4 +279,41 @@ function drawWavyRectangle(ctx, x, y, width, height, frequency, amplitude) {
     
     // 선 그리기
     ctx.stroke();
+}
+
+//인표 만들기
+function drawTable() {
+
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
+
+    // 수직선 그리기 (반복문 사용)
+    for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.moveTo(130 + i * 40, 12);
+        ctx.lineTo(130 + i * 40, 50);
+        ctx.stroke();
+    }
+
+    // 수평선 그리기
+    ctx.beginPath();
+    ctx.moveTo(130 , 12);
+    ctx.lineTo(130 + 40 * 3, 12);
+    ctx.moveTo(130 , 26 );
+    ctx.lineTo(130 + 40 * 3, 26);
+    ctx.moveTo(130 , 50 );
+    ctx.lineTo(130 + 40 * 3, 50);
+    ctx.stroke();
+
+
+    // 텍스트 추가
+    ctx.font = '7px Arial';
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const headers = ['주문자', '현장 책임자', '현장 관리자'];
+    for (let i = 0; i < 3; i++) {
+        ctx.fillText(headers[i], 150 + i * 40, 20);
+    }
 }
