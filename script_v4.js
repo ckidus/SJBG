@@ -23,7 +23,7 @@ function drawRectangle() {
     // 입력값 가져오기
     const width = parseInt(document.getElementById('width').value);
     const holeSize = Number(document.getElementById('holeSize').value);
-    const height = 300-holeSize //parseInt(document.getElementById('height').value);
+    const height = 250-holeSize-5 //parseInt(document.getElementById('height').value);
     const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
     const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
     const holeCount = Number(document.getElementById('holeCount').value);
@@ -114,7 +114,7 @@ function drawRectangle() {
     ctx.fillText(holeSize +"파이", center_X, bot_center_Y + lineHeight * 2);
     
     ctx.fillStyle = 'red';
-    ctx.fillText("유공의 특성상 제품 생산 후 교환 및 환불이 불가합니다.", center_X, y-lineHeight*1.2);
+    ctx.fillText("유공의 특성상 제품 생산 후 교환 및 환불이 불가합니다.", center_X, y-lineHeight*2);
 
     //확인표 만들기
     drawTable();
@@ -290,19 +290,19 @@ function drawTable() {
     // 수직선 그리기 (반복문 사용)
     for (let i = 0; i < 4; i++) {
         ctx.beginPath();
-        ctx.moveTo(130 + i * 40, 12);
-        ctx.lineTo(130 + i * 40, 50);
+        ctx.moveTo(130 + i * 40, 15);
+        ctx.lineTo(130 + i * 40, 55);
         ctx.stroke();
     }
 
     // 수평선 그리기
     ctx.beginPath();
-    ctx.moveTo(130 , 12);
-    ctx.lineTo(130 + 40 * 3, 12);
-    ctx.moveTo(130 , 26 );
-    ctx.lineTo(130 + 40 * 3, 26);
-    ctx.moveTo(130 , 50 );
-    ctx.lineTo(130 + 40 * 3, 50);
+    ctx.moveTo(130 , 15);
+    ctx.lineTo(130 + 40 * 3, 15);
+    ctx.moveTo(130 , 30 );
+    ctx.lineTo(130 + 40 * 3, 30);
+    ctx.moveTo(130 , 55 );
+    ctx.lineTo(130 + 40 * 3, 55);
     ctx.stroke();
 
 
@@ -314,6 +314,6 @@ function drawTable() {
 
     const headers = ['주문자', '현장 책임자', '현장 관리자'];
     for (let i = 0; i < 3; i++) {
-        ctx.fillText(headers[i], 150 + i * 40, 20);
+        ctx.fillText(headers[i], 150 + i * 40, 25);
     }
 }
