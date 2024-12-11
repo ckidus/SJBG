@@ -79,11 +79,13 @@ function drawRectangle() {
     drawDimensionLine(x,indiv_dimension_y,indiv_dimension_x,indiv_dimension_y,`${space_last}`) //왼쪽 마지막에서 구멍까지 
     drawDimensionLine_simple(x, indiv_dimension_y, x, cirlce_startY)
 
-    for(let i = 0; i < holeCount; i++){
-        drawDimensionLine(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x + horizontalSpacing, indiv_dimension_y, `${horizontalSpacing}`);
-        indiv_dimension_x = cirlce_startX + i *  horizontalSpacing;
-        //console.log("x위치: " +indiv_dimension_x);
-        drawDimensionLine_simple(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x, cirlce_startY)
+    if(holeCount>1){
+        for(let i = 0; i < holeCount; i++){
+            drawDimensionLine(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x + horizontalSpacing, indiv_dimension_y, `${horizontalSpacing}`);
+            indiv_dimension_x = cirlce_startX + i *  horizontalSpacing;
+            //console.log("x위치: " +indiv_dimension_x);
+            drawDimensionLine_simple(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x, cirlce_startY)
+        }
     }
     drawDimensionLine(bot_rect_right_X,indiv_dimension_y,indiv_dimension_x,indiv_dimension_y,`${space_last}`) //오른쪽 마지막에서 구멍까지
     drawDimensionLine_simple(bot_rect_right_X, indiv_dimension_y, bot_rect_right_X, bot_rect_left_Y)
@@ -107,11 +109,11 @@ function drawRectangle() {
     ctx.font = '10px Arial';
     center_X = x + width / 2;
     bot_center_Y = total_dimension_y + 30;
-    lineHeight = 10;
+    lineHeight = 14;
     ctx.fillStyle = 'black';
-    ctx.fillText("폭 " +width +" "+holeCount+"구", center_X, bot_center_Y);
+    ctx.fillText("폭 " +width, center_X, bot_center_Y);
     ctx.fillText("간격 " +horizontalSpacing +"*"+verticalSpacing, center_X, bot_center_Y+lineHeight);
-    ctx.fillText(holeSize +"파이", center_X, bot_center_Y + lineHeight * 2);
+    ctx.fillText(holeCount+"구"+" "+holeSize +"파이", center_X, bot_center_Y + lineHeight * 2);
     
     ctx.fillStyle = 'red';
     ctx.fillText("유공의 특성상 제품 생산 후 교환 및 환불이 불가합니다.", center_X, y-lineHeight*2);
