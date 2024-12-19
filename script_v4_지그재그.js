@@ -76,21 +76,30 @@ function drawRectangle() {
     indiv_dimension_y = bot_rect_left_Y + 10;
     indiv_dimension_x = cirlce_startX;
     total_dimension_y = indiv_dimension_y + 20;
-    space_last = cirlce_startX - x//외곽 구멍에서 사각형 끝까지 거리
+    space_last = indiv_dimension_x - x//외곽 구멍에서 사각형 끝까지 거리
     ctx.lineWidth = 0.5;
     drawDimensionLine(x,indiv_dimension_y,indiv_dimension_x,indiv_dimension_y,`${space_last}`) //왼쪽 마지막에서 구멍까지 
-    drawDimensionLine_simple(x, indiv_dimension_y, x, cirlce_startY)
 
-    if(holeCount>1){
-        for(let i = 0; i < holeCount; i++){
-            drawDimensionLine(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x + horizontalSpacing, indiv_dimension_y, `${horizontalSpacing}`);
-            indiv_dimension_x = cirlce_startX + i *  horizontalSpacing;
-            //console.log("x위치: " +indiv_dimension_x);
-            drawDimensionLine_simple(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x, cirlce_startY)
-        }
+    for(let i = 0; i <= holeCount; i++){
+        drawDimensionLine(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x + horizontalSpacing, indiv_dimension_y, `${horizontalSpacing}`);
+        indiv_dimension_x = cirlce_startX + i *  horizontalSpacing;
+        //console.log("x위치: " +indiv_dimension_x);
+        drawDimensionLine_simple(indiv_dimension_x, indiv_dimension_y, indiv_dimension_x, cirlce_startY)
     }
+
+    //오른쪽 마지막에서 구멍까지
     drawDimensionLine(bot_rect_right_X,indiv_dimension_y,indiv_dimension_x,indiv_dimension_y,`${space_last}`) //오른쪽 마지막에서 구멍까지
     drawDimensionLine_simple(bot_rect_right_X, indiv_dimension_y, bot_rect_right_X, bot_rect_left_Y)
+
+    //오른쪽 1번과 2번구멍 y좌표 차이
+    indiv_dimension_y_ver = cirlce_startY;
+    drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
+    for(let i = 1; i < 2; i++){
+        drawDimensionLine_right_vert(bot_rect_right_X+10, indiv_dimension_y_ver, bot_rect_right_X+10, indiv_dimension_y_ver - verticalSpacing/2, `${verticalSpacing/2}`);
+        indiv_dimension_y_ver = cirlce_startY - i *  verticalSpacing/2;        
+        //console.log("y위치: " +indiv_dimension_y_ver);
+        drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
+    }
 
     //전체 폭표시 및 치수선 그리기
     drawDimensionLine(x,total_dimension_y,bot_rect_right_X,total_dimension_y,`${width}`)
@@ -114,7 +123,7 @@ function drawRectangle() {
     lineHeight = 14;
     ctx.fillStyle = 'black';
     ctx.fillText("폭 " +width, center_X, bot_center_Y);
-    ctx.fillText("간격 " +horizontalSpacing +"*"+verticalSpacing, center_X, bot_center_Y+lineHeight);
+    ctx.fillText("간격 " +horizontalSpacing +"(Z)*"+verticalSpacing, center_X, bot_center_Y+lineHeight);
     ctx.fillText(holeCount+"구"+" "+holeSize +"파이", center_X, bot_center_Y + lineHeight * 2);
     
     ctx.fillStyle = 'red';
@@ -208,7 +217,7 @@ function drawDimensionLine(x1, y1, x2, y2, label) {
     const midY = (y1 + y2) / 2;
     ctx.fillText(label, midX, midY + 7);
 }
-
+//지시선 화살표와 같이 그리기 세로
 function drawDimensionLine_vert(x1, y1, x2, y2, label) {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
@@ -223,6 +232,22 @@ function drawDimensionLine_vert(x1, y1, x2, y2, label) {
     const midX = (x1 + x2) / 2;
     const midY = (y1 + y2) / 2;
     ctx.fillText(label, midX-5, midY+2.5);
+}
+
+function drawDimensionLine_right_vert(x1, y1, x2, y2, label) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    // 화살표 그리기
+    drawArrow(x1, y1, x2, y2);
+    drawArrow(x2, y2, x1, y1);
+
+    // 레이블 그리기
+    const midX = (x1 + x2) / 2;
+    const midY = (y1 + y2) / 2;
+    ctx.fillText(label, midX+5, midY+2.5);
 }
 //화살표 그리기
 function drawArrow(fromX, fromY, toX, toY) {
@@ -239,11 +264,11 @@ function drawArrow(fromX, fromY, toX, toY) {
 // 원 그리기
 function drawCircles(startX, startY, holeSize, horizontalSpacing,height,verticalSpacing, holeCount) {
     const radius = (holeSize/2);
-    const verticalCount = parseInt((height - 10) / verticalSpacing);
+    const verticalCount = parseInt((height - 10-holeSize/2) / (verticalSpacing/2));
     console.log("반지름: " + radius);
     console.log("위아래 개수: " + verticalCount);
     for(let j = 0; j < verticalCount; j++) {
-        let circle_y = startY - j * verticalSpacing;
+        let circle_y = startY - j * verticalSpacing/2;
         let offsetX = (j % 2) * (horizontalSpacing); // 지그재그 패턴을 위한 X 오프셋
         
         for (let i = 0; i < holeCount; i++) {
