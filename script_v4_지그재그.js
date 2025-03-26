@@ -95,7 +95,7 @@ function drawRectangle() {
     indiv_dimension_y_ver = cirlce_startY;
     drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
     for(let i = 1; i < 2; i++){
-        drawDimensionLine_right_vert(bot_rect_right_X+10, indiv_dimension_y_ver, bot_rect_right_X+10, indiv_dimension_y_ver - verticalSpacing/2, `${verticalSpacing/2}`);
+        drawDimensionLine_right_vert(bot_rect_right_X+11, indiv_dimension_y_ver, bot_rect_right_X+11, indiv_dimension_y_ver - verticalSpacing/2, `${verticalSpacing/2}`);
         indiv_dimension_y_ver = cirlce_startY - i *  verticalSpacing/2;        
         //console.log("y위치: " +indiv_dimension_y_ver);
         drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
@@ -152,7 +152,7 @@ function downloadPNG() {
     const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
 
     // 파일명 생성
-    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.png`;
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}(지)x${verticalSpacing}_${holeCount}구_${holeSize}파이.png`;
 
     const dataURL = canvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -188,7 +188,7 @@ function downloadPDF() {
     const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
 
     // 파일명 생성
-    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.pdf`;
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}(지)x${verticalSpacing}_${holeCount}구_${holeSize}파이.pdf`;
 
     pdf.save(fileName);
 }
