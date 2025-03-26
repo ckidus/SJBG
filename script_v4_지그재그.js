@@ -93,10 +93,11 @@ function drawRectangle() {
 
     //오른쪽 1번과 2번구멍 y좌표 차이
     indiv_dimension_y_ver = cirlce_startY;
+    const halfVerticalSpacing = verticalSpacing / 2; //절반값 선언
     drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
     for(let i = 1; i < 2; i++){
-        drawDimensionLine_right_vert(bot_rect_right_X+11, indiv_dimension_y_ver, bot_rect_right_X+11, indiv_dimension_y_ver - verticalSpacing/2, `${verticalSpacing/2}`);
-        indiv_dimension_y_ver = cirlce_startY - i *  verticalSpacing/2;        
+        drawDimensionLine_right_vert(bot_rect_right_X+10, indiv_dimension_y_ver, bot_rect_right_X+10, indiv_dimension_y_ver - verticalSpacing/2, `${halfVerticalSpacing}`);
+        indiv_dimension_y_ver = cirlce_startY - i *  halfVerticalSpacing;        
         //console.log("y위치: " +indiv_dimension_y_ver);
         drawDimensionLine_simple(bot_rect_right_X+10, indiv_dimension_y_ver, indiv_dimension_x, indiv_dimension_y_ver)
     }
@@ -247,7 +248,9 @@ function drawDimensionLine_right_vert(x1, y1, x2, y2, label) {
     // 레이블 그리기
     const midX = (x1 + x2) / 2;
     const midY = (y1 + y2) / 2;
-    ctx.fillText(label, midX+5, midY+2.5);
+
+    const adjustedX = Number.isInteger(label) ? midX + 5 : midX + 7;//label의 값이 정수인지 아닌지 확인하고 정수면 앞 정수가 아니면 뒤
+    ctx.fillText(label, adjustedX, midY + 2.5);
 }
 //화살표 그리기
 function drawArrow(fromX, fromY, toX, toY) {
