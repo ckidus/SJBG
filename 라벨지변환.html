@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파렛트라벨지 변환</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>파렛트라벨지 변환</h1>
+        <textarea id="inputData" placeholder="데이터를 여기에 입력하세요 (예: 생분해성 멀칭 90cm1000m [0.015*90*1000] 3롤 무공 ... )"></textarea>
+        <br>
+        <button onclick="transformData()">변환하기</button>
+        
+        <div class="result" id="outputData"></div>
+    </div>
+
+    <script>
+        function transformData() {
+            const inputText = document.getElementById('inputData').value.trim();
+            
+            if (inputText === "") {
+                alert("입력 데이터가 없습니다. 데이터를 입력해주세요.");
+                return;
+            }
+
+            const lines = inputText.split('\n');
+            const result = [];
+
+            // 각 줄을 처리합니다
+            lines.forEach(line => {
+                // 대괄호와 공백 기준으로 나누기
+                const parts = line.match(/(.+?)\s(\[.+?\])\s(\d+)롤\s(.*)/);
+
+                if (parts) {
+                    const itemName = parts[1].trim();   // 아이템 이름 (생분해성 멀칭 등)
+                    let dimensions = parts[2].replace(/[\[\]]/g, '');   // 치수: 대괄호를 제거
+                    const rolls = parseInt(parts[3], 10);   // 롤 수
+                    const hole = parts[4].trim();   // 구멍 정보
+
+                    // 규격명에서 "U" 제거
+                    dimensions = dimensions.replace('U', ''); // U 제거
+
+                    // 치수 파싱: 예: 0.015*90*1000
+                    const dimensionParts = dimensions.split('*');
+                    const thickness = dimensionParts[0];
+                    const width = dimensionParts[1];
+                    const length = dimensionParts[2];
+
+                    // 구멍 처리
+                    let holeText = '';
+                    if (hole === '무공') {
+                        holeText = '무공';
+                    } else if (hole.includes('구')) {
+                        holeText = `유공[${hole}]`;
+                    }
+
+                    // 변환된 결과 생성
+                    const transformedLine = `${thickness}mm*${width}cm*${length}m / ${holeText} / ${rolls}롤`;
+                    result.push(transformedLine);
+                }
+            });
+
+            // 결과를 화면에 출력
+            const outputDiv = document.getElementById('outputData');
+            if (result.length > 0) {
+                outputDiv.innerHTML = result.join('<br>');
+            } else {
+                outputDiv.innerHTML = "변환된 결과가 없습니다.";
+            }
+        }
+    </script>
+
+</body>
+</html>
