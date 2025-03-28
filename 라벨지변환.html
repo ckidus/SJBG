@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1><a href="index.html">Home</a></h1>
-    <title>파렛트라벨지 변환</title>
+    <title>출하전표_라벨지전환</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,8 +44,8 @@
 <body>
 
     <div class="container">
-        <h1>파렛트라벨지 변환</h1>
-        <textarea id="inputData" placeholder="데이터를 여기에 입력하세요 (예: 생분해성 멀칭 90cm1000m [0.015*90*1000] 3롤 무공 ... )"></textarea>
+        <h1>출하전표_라벨지전환</h1>
+        <textarea id="inputData" placeholder="데이터를 여기에 입력하세요 (예: 0.015*90*500 75롤 SJ 205 무공 ... )"></textarea>
         <br>
         <button onclick="transformData()">변환하기</button>
         
@@ -62,23 +62,20 @@
             }
 
             const lines = inputText.split('\n');
-            const result = [];
+            const result = {};
 
             // 각 줄을 처리합니다
             lines.forEach(line => {
-                // 대괄호와 공백 기준으로 나누기
-                const parts = line.match(/(.+?)\s(\[.+?\])\s(\d+)롤\s(.*)/);
+                // 파렛트 번호, 치수, 롤 수, 구멍 정보 추출
+                const parts = line.match(/(.+?)\s(\d+)롤\s((?:SJ\s[^\s]+|\S+))\s(.*)/);
 
                 if (parts) {
-                    const itemName = parts[1].trim();   // 아이템 이름 (생분해성 멀칭 등)
-                    let dimensions = parts[2].replace(/[\[\]]/g, '');   // 치수: 대괄호를 제거
-                    const rolls = parseInt(parts[3], 10);   // 롤 수
-                    const hole = parts[4].trim();   // 구멍 정보
+                    const dimensions = parts[1].replace('U', '');  // U 제거
+                    const rolls = parseInt(parts[2], 10);   // 롤 수
+                    const palletNumber = parts[3];  // 파렛트 번호 (문자 또는 숫자)
+                    const holeInfo = parts[4].trim();   // 구멍 정보
 
-                    // 규격명에서 "U" 제거
-                    dimensions = dimensions.replace('U', ''); // U 제거
-
-                    // 치수 파싱: 예: 0.015*90*1000
+                    // 치수 파싱: 예: 0.015*90*500
                     const dimensionParts = dimensions.split('*');
                     const thickness = dimensionParts[0];
                     const width = dimensionParts[1];
@@ -86,22 +83,34 @@
 
                     // 구멍 처리
                     let holeText = '';
-                    if (hole === '무공') {
+                    if (holeInfo === '무공') {
                         holeText = '무공';
-                    } else if (hole.includes('구')) {
-                        holeText = `유공[${hole}]`;
+                    } else if (holeInfo.includes('구')) {
+                        holeText = `유공[${holeInfo}]`;
                     }
 
                     // 변환된 결과 생성
                     const transformedLine = `${thickness}mm*${width}cm*${length}m / ${holeText} / ${rolls}롤`;
-                    result.push(transformedLine);
+
+                    // 파렛트 번호별로 그룹화
+                    if (!result[palletNumber]) {
+                        result[palletNumber] = [];
+                    }
+                    result[palletNumber].push(transformedLine);
                 }
             });
 
             // 결과를 화면에 출력
             const outputDiv = document.getElementById('outputData');
-            if (result.length > 0) {
-                outputDiv.innerHTML = result.join('<br>');
+            let outputText = '';
+            for (const palletNumber in result) {
+                // 숫자일 경우에도 제대로 출력하도록 처리
+                outputText += `<b>${palletNumber}</b><br>`;
+                outputText += result[palletNumber].join('<br>') + '<br><br>';
+            }
+
+            if (outputText) {
+                outputDiv.innerHTML = outputText;
             } else {
                 outputDiv.innerHTML = "변환된 결과가 없습니다.";
             }
