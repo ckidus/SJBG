@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>롤 무게 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: right;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>롤 무게 계산기</h1>
+    <div>
+        <label for="rolls">롤 데이터 입력 (한 줄에 한 롤, 형식: 두께*폭*길이 롤수)</label>
+        <textarea id="rolls" placeholder="예: 0.015*90*500 75
+0.015*90*500U 3"></textarea>
+        <button onclick="calculateWeights()">무게 계산</button>
+    </div>
+    <div id="results"></div>
+
+    <script>
+        function calculateWeights() {
+            const rollsInput = document.getElementById('rolls').value;
+            const rollLines = rollsInput.trim().split('\n');
+            const resultsDiv = document.getElementById('results');
+            
+            let totalWeight = 0;
+            let totalRolls = 0;
+            let detailedResults = [];
+
+            rollLines.forEach(line => {
+                // 롤 데이터와 롤 수 분리
+                const parts = line.trim().split(/\s+/);
+                const dimensions = parts[0].split('*');
+                const rollCount = parseInt(parts[1]);
+
+                // 데이터 파싱
+                const thickness = parseFloat(dimensions[0]);
+                const width = parseFloat(dimensions[1]);
+                const length = parseFloat(dimensions[2]);
+
+                // 무게 계산 공식: 10.08 * 두께/0.015 * 폭/100 * 길이/500
+                const individualRollWeight = 10.08 * 
+                    (thickness / 0.015) * 
+                    (width / 100) * 
+                    (length / 500);
+                
+                const totalRollWeight = individualRollWeight * rollCount;
+                totalWeight += totalRollWeight;
+                totalRolls += rollCount;
+
+                // 결과 저장
+                detailedResults.push({
+                    thickness: thickness,
+                    width: width,
+                    length: length,
+                    rollCount: rollCount,
+                    individualWeight: individualRollWeight.toFixed(2),
+                    totalWeight: totalRollWeight.toFixed(2)
+                });
+            });
+
+            // 결과 표시
+            let resultsHTML = `
+                <h2>계산 결과</h2>
+                <table>
+                    <tr>
+                        <th>두께</th>
+                        <th>폭</th>
+                        <th>길이</th>
+                        <th>롤 수</th>
+                        <th>개별 롤 무게(kg)</th>
+                        <th>총 롤 무게(kg)</th>
+                    </tr>
+            `;
+            
+            detailedResults.forEach(result => {
+                resultsHTML += `
+                    <tr>
+                        <td>${result.thickness}</td>
+                        <td>${result.width}</td>
+                        <td>${result.length}</td>
+                        <td>${result.rollCount}</td>
+                        <td>${result.individualWeight}</td>
+                        <td>${result.totalWeight}</td>
+                    </tr>
+                `;
+            });
+            
+            // 합계 행 추가
+            resultsHTML += `
+                <tr class="total-row">
+                    <td colspan="3">합계</td>
+                    <td>${totalRolls}</td>
+                    <td>-</td>
+                    <td>${totalWeight.toFixed(2)}</td>
+                </tr>
+                </table>
+            `;
+            
+            resultsDiv.innerHTML = resultsHTML;
+        }
+    </script>
+</body>
+</html>
