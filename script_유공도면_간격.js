@@ -28,7 +28,7 @@ function drawRectangle() {
     const CenterGap = Number(document.getElementById('CenterGap').value);
     const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
     const holeCount = Number(document.getElementById('holeCount').value);
-
+    const checkbox = document.getElementById('centerhole'); // HTML의 id와 일치 확인
 
     // 캔버스 초기화 (흰색 배경)
     ctx.fillStyle = 'white';
@@ -164,6 +164,15 @@ function drawRectangle() {
 
     //확인표 만들기
     drawTable();
+
+    // 체크박스 침공 추가
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+        draw_centerhole(x, y, width, height);
+        } else {
+        clearCanvas();
+        }
+    });
 
 
     // 디버깅을 위한 로그
@@ -384,4 +393,26 @@ function drawTable() {
     for (let i = 0; i < 3; i++) {
         ctx.fillText(headers[i], 150 + i * 40, 25);
     }
+}
+
+
+// 2. 침공 전용 그리기 함수 수정
+function draw_centerhole(rectX, rectY, rectWidth, rectHeight) {
+    
+    // 사각형의 가로 중앙 계산
+    const centerX = rectX + (rectWidth / 2);
+    const hole_radius = 0.5; // 침공 크기 (반지름)
+    const gap = 5;           // 침공 사이의 간격
+
+    // 시작점을 사각형 상단(rectY)으로, 끝점을 사각형 하단(rectY + rectHeight)으로 설정
+    // 상단 물결 무늬(amplitude)를 고려하여 rectY + 5 정도로 시작하면 더 깔끔합니다.
+    for (let y = rectY + 5; y < rectY + rectHeight; y += gap) {
+        ctx.beginPath();
+        ctx.arc(centerX, y, hole_radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+if (checkbox) {
+    checkbox.addEventListener('change', drawRectangle);
 }
