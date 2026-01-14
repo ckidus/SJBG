@@ -186,6 +186,7 @@ function downloadPNG() {
     const width = parseInt(document.getElementById('width').value);
     const holeSize = Number(document.getElementById('holeSize').value);
     const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
+    const CenterGap = Number(document.getElementById('CenterGap').value);
     const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
     const holeCount = Number(document.getElementById('holeCount').value);
 
@@ -194,7 +195,7 @@ function downloadPNG() {
     const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
 
     // 파일명 생성
-    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.png`;
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}(${CenterGap})x${verticalSpacing}_${holeCount}구_${holeSize}파이.png`;
 
     const dataURL = canvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -213,6 +214,7 @@ function downloadPDF() {
     const width = parseInt(document.getElementById('width').value);
     const holeSize = Number(document.getElementById('holeSize').value);
     const horizontalSpacing = Number(document.getElementById('horizontalSpacing').value);
+    const CenterGap = Number(document.getElementById('CenterGap').value);
     const verticalSpacing = Number(document.getElementById('verticalSpacing').value);
     const holeCount = Number(document.getElementById('holeCount').value);
     
@@ -230,7 +232,7 @@ function downloadPDF() {
     const formattedDate = today.toISOString().slice(2,10).replace(/-/g, '');
 
     // 파일명 생성
-    const fileName = `${formattedDate}_${width}_${horizontalSpacing}x${verticalSpacing}_${holeCount}구_${holeSize}파이.pdf`;
+    const fileName = `${formattedDate}_${width}_${horizontalSpacing}(${CenterGap})x${verticalSpacing}_${holeCount}구_${holeSize}파이.pdf`;
 
     pdf.save(fileName);
 }
