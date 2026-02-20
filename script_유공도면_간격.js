@@ -131,6 +131,10 @@ function drawRectangle() {
         }
     }
 */
+    if (holeCount == 1) {
+    last_x = cirlce_startX;
+    space_last = CenterGap + space_last;
+    }
     drawDimensionLine(bot_rect_right_X,indiv_dimension_y, last_x ,indiv_dimension_y,`${space_last}`) //오른쪽 마지막에서 구멍까지
     drawDimensionLine_simple(bot_rect_right_X, indiv_dimension_y, bot_rect_right_X, bot_rect_left_Y)
 
