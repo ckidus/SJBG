@@ -298,7 +298,7 @@ function drawArrow(fromX, fromY, toX, toY) {
 // 원 그리기
 function drawCircles(startX, startY, holeSize, horizontalSpacing, height, verticalSpacing, holeCount, CenterGap) {
     const radius = holeSize / 2;
-    const verticalCount = parseInt((height - 10) / verticalSpacing);
+    const verticalCount = parseInt((height - 10 - holeSize/2) / verticalSpacing);
     const midPointIndex = Math.floor(holeCount / 2); // 구멍들의 중앙 지점 계산
 
     //console.log("반지름: " + radius);

@@ -237,7 +237,7 @@ function drawArrow(fromX, fromY, toX, toY) {
 // 원 그리기
 function drawCircles(startX, startY, holeSize, horizontalSpacing,height,verticalSpacing, holeCount) {
     const radius = (holeSize/2);
-    const verticalCount = parseInt((height - 10) / verticalSpacing);
+    const verticalCount = parseInt((height - 10 - holeSize/2) / verticalSpacing);
     console.log("반지름: " + radius);
     console.log("위아래 개수: " + verticalCount);
     for(let j = 0; j < verticalCount; j++) {
