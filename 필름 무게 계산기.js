@@ -1,6 +1,6 @@
 function calculateWeight() {
     // 입력 값 받기
-    let thickness = parseFloat(document.getElementById("thickness").value) / 1000; // mm -> m
+    let thickness = parseFloat(document.getElementById("thickness").value) / 1000/1000; // um -> m
     let width = parseFloat(document.getElementById("width").value) / 100; // cm -> m
     let length = parseFloat(document.getElementById("length").value); // m
     let holeDiameter = parseFloat(document.getElementById("holeDiameter").value) / 100; // cm -> m

@@ -10,25 +10,25 @@
 <body>
     <h1>필름 무게 계산기</h1>
     <label for="thickness">두께 (mm):</label>
-    <input type="number" id="thickness" step="0.000001" placeholder="예: 0.015"><br>
+    <input type="number" id="thickness" placeholder="예: 15">
 
     <label for="width">폭 (cm):</label>
-    <input type="number" id="width" placeholder="예: 100"><br>
+    <input type="number" id="width" placeholder="예: 100">
 
     <label for="length">길이 (m):</label>
-    <input type="number" id="length" placeholder="예: 500"><br>
-
-    <label for="holeDiameter">구멍 지름 (cm):</label>
-    <input type="number" id="holeDiameter" step="0.01" placeholder="예: 5"><br>
+    <input type="number" id="length" placeholder="예: 500">
 
     <label for="verticalSpacing">구멍 세로 간격 (cm):</label>
-    <input type="number" id="verticalSpacing" step="0.01" placeholder="예: 10"><br>
+    <input type="number" id="verticalSpacing" placeholder="예: 10">
 
     <label for="holeCountPerRow">구멍 개수:</label>
-    <input type="number" id="holeCountPerRow" placeholder="예: 10"><br>
+    <input type="number" id="holeCountPerRow" placeholder="예: 10">
+
+    <label for="holeDiameter">구멍 지름 (cm):</label>
+    <input type="number" id="holeDiameter" placeholder="예: 5">
 
     <label for="density">비중:</label>
-    <input type="number" id="density" step="0.01" value="1.21"><br>
+    <input type="number" id="density" step="0.01" value="1.23">
 
     <button onclick="calculateWeight()">계산하기</button>
 
